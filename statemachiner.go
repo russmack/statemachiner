@@ -1,5 +1,5 @@
 // Package statemachine provides a state machine framework.
-package statemachine
+package statemachiner
 
 // StateMachine is the structure which represents the state machine.
 type StateMachine struct {

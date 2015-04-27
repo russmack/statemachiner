@@ -3,12 +3,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/russmack/statemachine"
+	"github.com/russmack/statemachiner"
 )
 
 // Setup and start the state machine.
 func main() {
-	s := statemachine.NewStateMachine()
+	s := statemachiner.NewStateMachine()
 	s.StartState = dispenseDogBiscuits
 	c := NewHome()
 	s.Start(c)
@@ -30,7 +30,7 @@ func NewHome() *Home {
 
 // dispdispenseDogBiscuits is a state function.  This function updates state, and
 // returns the next state.
-func dispenseDogBiscuits(cargo interface{}) statemachine.StateFn {
+func dispenseDogBiscuits(cargo interface{}) statemachiner.StateFn {
 	cargo.(*Home).DispenseDogBiscuits = 10
 	cargo.(*Home).TotalDogBiscuits += cargo.(*Home).DispenseDogBiscuits
 	fmt.Printf("%+v\n", cargo)
@@ -38,21 +38,21 @@ func dispenseDogBiscuits(cargo interface{}) statemachine.StateFn {
 }
 
 // lights is a state function.
-func lights(cargo interface{}) statemachine.StateFn {
+func lights(cargo interface{}) statemachiner.StateFn {
 	cargo.(*Home).Lights = true
 	fmt.Printf("%+v\n", cargo)
 	return kettle
 }
 
 // kettle is a state function.
-func kettle(cargo interface{}) statemachine.StateFn {
+func kettle(cargo interface{}) statemachiner.StateFn {
 	cargo.(*Home).Kettle = true
 	fmt.Printf("%+v\n", cargo)
 	return vacuumRoom
 }
 
 // vacuumRoom is a state function which returns one of two possible state functions.
-func vacuumRoom(cargo interface{}) statemachine.StateFn {
+func vacuumRoom(cargo interface{}) statemachiner.StateFn {
 	if cargo.(*Home).TotalDogBiscuits < 20 {
 		return dispenseDogBiscuits
 	} else {
