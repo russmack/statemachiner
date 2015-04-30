@@ -6,6 +6,11 @@ type StateMachine struct {
 	StartState StateFn
 }
 
+// StateMachiner is a useful interface.
+type StateMachiner interface {
+	Start()
+}
+
 // StateFn is a user-defined function type.  All state functions in the client
 // must adhere to this signature.
 type StateFn func(interface{}) StateFn
